@@ -1,0 +1,130 @@
+A.Led blinking 
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    while(1)
+    {
+        P2 = 0xFF;
+        delay();
+
+        P2 = 0x00;
+        delay();
+    }
+}
+
+
+
+
+B.Alternate Led blinking 
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    while(1)
+    {
+        P2=0xAA;
+        delay();
+
+        P2=0x55;
+        delay();
+    }
+}
+
+
+C.ROLLING LED PATTERN
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    unsigned char i;
+
+    while(1)
+    {
+        for(i=0;i<8;i++)
+        {
+            P2 = (1<<i);
+            delay();
+        }
+    }
+}
+
+
+
+D.HEXADECIMAL COUNTER 
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    unsigned int i;
+
+    while(1)
+    {
+        for(i=0;i<256;i++)
+        {
+            P2=i;
+            delay();
+        }
+    }
+}
+
+
+
+E.BCD COUNTER 
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    unsigned char i,j;
+
+    while(1)
+    {
+        for(i=0;i<10;i++)
+        {
+            for(j=0;j<10;j++)
+            {
+                P2=(i<<4)|j;
+                delay();
+            }
+        }
+    }
+}

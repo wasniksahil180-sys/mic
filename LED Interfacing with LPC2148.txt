@@ -1,0 +1,128 @@
+LED Interfacing with LPC2148
+
+All led on or off
+
+#include <lpc214x.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+int main()
+{
+    IODIR1 = 0xFF000000;
+
+    while(1)
+    {
+        IOSET1 = 0xFF000000;
+        delay();
+
+        IOCLR1 = 0xFF000000;
+        delay();
+    }
+}
+
+
+
+Sequential Led blinking 
+
+#include <lpc214x.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+int main()
+{
+    int i;
+
+    IODIR1 = 0xFF000000;
+
+    while(1)
+    {
+        for(i=24;i<=31;i++)
+        {
+            IOSET1 = (1<<i);
+            delay();
+            IOCLR1 = (1<<i);
+        }
+    }
+}
+
+
+
+
+
+Running led left to right and right to left 
+
+#include <lpc214x.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+int main()
+{
+    int i;
+
+    IODIR1 = 0xFF000000;
+
+    while(1)
+    {
+        for(i=24;i<=31;i++)
+        {
+            IOSET1 = (1<<i);
+            delay();
+            IOCLR1 = (1<<i);
+        }
+
+        for(i=30;i>=25;i--)
+        {
+            IOSET1 = (1<<i);
+            delay();
+            IOCLR1 = (1<<i);
+        }
+    }
+}
+
+
+
+
+
+
+ALTERNATE LED BLINKING 
+
+#include <lpc214x.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+int main()
+{
+    IODIR1 = 0xFF000000;
+
+    while(1)
+    {
+        IOSET1 = 0x55000000;
+        IOCLR1 = 0xAA000000;
+        delay();
+
+        IOSET1 = 0xAA000000;
+        IOCLR1 = 0x55000000;
+        delay();
+    }
+}
+

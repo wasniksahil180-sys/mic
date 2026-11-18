@@ -1,0 +1,56 @@
+4*4 keypad interfacing 
+
+#include <lpc214x.h>
+
+char key[4][4]={
+{'1','2','3','A'},
+{'4','5','6','B'},
+{'7','8','9','C'},
+{'*','0','#','D'}
+};
+
+void delay()
+{
+    int i;
+    for(i=0;i<10000;i++);
+}
+
+char keypad()
+{
+    int i,j;
+    unsigned int col;
+
+    for(i=0;i<4;i++)
+    {
+        IO0SET=0x000F0000;
+        IO0CLR=(1<<(16+i));
+        delay();
+
+        col=IO0PIN & 0x0000F000;
+
+        for(j=0;j<4;j++)
+        {
+            if(!(col & (1<<(12+j))))
+            {
+                delay();
+                return key[i][j];
+            }
+        }
+    }
+    return 0;
+}
+
+void main()
+{
+    char k;
+
+    PINSEL0 &= 0x00FFFFFF;
+    PINSEL1 &= 0xFFFFFF00;
+
+    IO0DIR=(IO0DIR & ~0x0000F000) | 0x000F0000;
+
+    while(1)
+    {
+        k=keypad();
+    }
+}

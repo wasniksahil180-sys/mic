@@ -1,0 +1,86 @@
+Stepper motor 
+Clock wise rotation
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    while(1)
+    {
+        P2 = 0x03;
+        delay();
+
+        P2 = 0x06;
+        delay();
+
+        P2 = 0x0C;
+        delay();
+
+        P2 = 0x09;
+        delay();
+    }
+}
+
+
+Anti clockwise rotation
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    while(1)
+    {
+        P2 = 0x09;
+        delay();
+
+        P2 = 0x0C;
+        delay();
+
+        P2 = 0x06;
+        delay();
+
+        P2 = 0x03;
+        delay();
+    }
+}
+
+Half step sequence 
+
+#include <reg51.h>
+
+void delay()
+{
+    int i,j;
+    for(i=0;i<100;i++)
+        for(j=0;j<1275;j++);
+}
+
+void main()
+{
+    unsigned char a[]={0x03,0x02,0x06,0x04,
+                       0x0C,0x08,0x09,0x01};
+    int i;
+
+    while(1)
+    {
+        for(i=0;i<8;i++)
+        {
+            P2=a[i];
+            delay();
+        }
+    }
+}

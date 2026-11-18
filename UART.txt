@@ -1,0 +1,40 @@
+UART
+
+#include <lpc214x.h>
+
+void UART_Init()
+{
+    PINSEL0=0x00000005;
+
+    U0LCR=0x83;
+    U0DLL=97;
+    U0DLM=0;
+    U0LCR=0x03;
+
+    U0FCR=0x07;
+}
+
+void UART_Tx(char ch)
+{
+    while(!(U0LSR & 0x20));
+    U0THR=ch;
+}
+
+char UART_Rx()
+{
+    while(!(U0LSR & 0x01));
+    return U0RBR;
+}
+
+void main()
+{
+    char ch;
+
+    UART_Init();
+
+    while(1)
+    {
+        ch=UART_Rx();
+        UART_Tx(ch);
+    }
+}
